@@ -23,9 +23,14 @@ The motivation for this is to create Qemu based OpenBSD machine that can be used
 for compiling custom OpenBSD kernel and also some experimentation with the
 system.
 
-To do that, I modified the `autoinstall-openbsd-on-qemu.sh` script, similarly to
-what https://github.com/0xJJ/autoinstall-openbsd-on-qemu/tree/main has done,
-notably:
+To do that, I modified the
+[`autoinstall-openbsd-on-qemu.sh`](https://git.skreutz.com/autoinstall-openbsd-on-qemu.git/)
+script by Stefan Kreutz, who described his approach in a
+[blog post](https://www.skreutz.com/posts/autoinstall-openbsd-on-qemu/)
+similarly to
+what https://github.com/0xJJ/autoinstall-openbsd-on-qemu/tree/main has done.
+
+Some notable changes:
   - change of the default SSH key type to ed25519
   - configurable OpenBSD version
   - reduce the install sets (exclude the X.org sets)
@@ -33,6 +38,8 @@ notably:
   - use bash instead of `/bin/sh`
   - store `install.conf`, `disklabel`, `boot.conf` and `install.site` files separately
   - create `random.seed` for the install
+  - used HTTPs instead of rsync, still keeping distinct location for the public
+    key used by `signify` to verify the install sets
 
 The script assumes a Linux distribution with the necessary tools such as `curl`,
 `ssh`, `openbsd-signify`, the Qemu itself, etc.
