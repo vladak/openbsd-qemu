@@ -56,16 +56,22 @@ do
   fi
 done
 
-# Fetch base public key from trusted HTTPS mirror.
-# TODO: use different mirror than CDN
+PUBKEY_LOCATION="https://ftp.openbsd.org/pub/OpenBSD/"
+
+# Fetch base public key from trusted location.
+# ftp.openbsd.org is used on purpose to differ from the HTTPS_MIRROR.
+if [[ $PUBKEY_LOCATION == $HTTPS_MIRROR ]]; then
+	echo "pubkey and HTTPs locations should differ"
+	exit 1
+fi
 mkdir -p mirror/pub/OpenBSD/$OPENBSD_VER
 if [ ! -e mirror/pub/OpenBSD/$OPENBSD_VER/openbsd-${openbsd_ver_short}-base.pub ]
 then
   curl \
     --silent \
     --output mirror/pub/OpenBSD/$OPENBSD_VER/openbsd-${openbsd_ver_short}-base.pub \
-    "${HTTPS_MIRROR}$OPENBSD_VER/openbsd-${openbsd_ver_short}-base.pub"
-  printf "Fetched base public key from %s\\n" "${HTTPS_MIRROR}"
+    "$PUBKEY_LOCATION/$OPENBSD_VER/openbsd-${openbsd_ver_short}-base.pub"
+  printf "Fetched base public key from %s\\n" "${PUBKEY_LOCATION}"
 fi
 
 # Fetch kernel, PXE bootstrap program, and file sets.
