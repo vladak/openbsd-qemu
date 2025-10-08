@@ -52,6 +52,12 @@ bits has to be run as
 sudo python3 -m http.server 80
 ```
 
+After the initial install in the VM is successfully done, start the VM as
+follows:
+```
+XXX
+```
+
 ## OpenBSD setup
 
 XXX
