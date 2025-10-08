@@ -25,9 +25,6 @@ set -o nounset
 # TODO Trusted HTTPS OpenBSD mirror to fetch the base public key from.
 HTTPS_MIRROR="${HTTPS_MIRROR-https://cdn.openbsd.org/pub/OpenBSD/}"
 
-# File name of the disk image.
-DISK_FILE="${DISK_FILE-disk.qcow2}"
-
 # Size of the disk image.
 DISK_SIZE="${DISK_SIZE-24G}"
 
@@ -45,6 +42,9 @@ OPENBSD_VER=7.7
 ARCH=i386 # or amd64
 
 openbsd_ver_short=$( echo $OPENBSD_VER | tr -d . )
+
+# File name of the disk image.
+DISK_FILE="${DISK_FILE-disk-${ARCH}-obsd_${openbsd_ver_short}.qcow2}"
 
 # Check required commands.
 for cmd in curl qemu-img qemu-system-x86_64 rsync signify-openbsd socat ssh
@@ -87,69 +87,16 @@ then
   printf "Fetched kernel, PXE bootstrap program, and file sets from %s\\n" "${HTTPS_MIRROR}"
 fi
 
-# Create autoinstall(8) configuration if not exists.
-if [ ! -e mirror/install.conf ]
-then
-  cat << EOF > mirror/install.conf
-Change the default console to com0 = yes
-Which speed should com0 use = 115200
-System hostname = openbsd
-Password for root = *************
-Allow root ssh login = no
-Setup a user = puffy
-Password for user = *************
-Public ssh key for user = $( cat "${SSH_KEY}" )
-What timezone are you in = UTC
-Location of sets = http
-HTTP Server = 10.0.2.2
-Unable to connect using https. Use http instead = yes
-URL to autopartitioning template for disklabel = http://10.0.2.2/disklabel
-Set name(s) = -x* site${openbsd_ver_short}
-Checksum test for site${openbsd_ver_short}.tgz failed. Continue anyway = yes
-Unverified sets: site${openbsd_ver_short}.tgz. Continue without verification = yes
-EOF
-  printf "Created example response file for autoinstall(8) at ./mirror/install.conf\\n"
-fi
+# Add autoinstall(8) configuration.
+cp install.conf mirror/install.conf
 
-# Create disklabel(8) configuration if not exists.
-if [ ! -e mirror/disklabel ]
-then
-  cat << EOF > mirror/disklabel
-/            2G
-swap         8G
-/tmp         1G
-/var         1G
-/usr         2G
-/usr/local   4G
-/usr/src     1M
-/usr/obj     1M
-/home        4G
-EOF
-  printf "Created example disklabel(8) template at ./mirror/disklabel.conf\\n"
-fi
+# Create disklabel(8) configuration.
+cp disklabel mirror/disklabel
 
-# Create site-specific file set if not exists.
-if [ ! -d site ]
-then
-  mkdir site
-  cat << EOF > site/install.site
-#! /bin/ksh
-
-set -o errexit
-
-# Reset OpenBSD mirror server used by pkg_add(1) and other commands.
-echo "https://cdn.openbsd.org/pub/OpenBSD" > /etc/installurl
-
-# Permit user group wheel to run any command as root without entering their
-# password using doas(1).
-echo "permit nopass keepenv :wheel" > /etc/doas.conf
-
-# Patch the base system on the first boot.
-#echo "syspatch && shutdown -r now" >> /etc/rc.firsttime
-EOF
-  chmod +x site/install.site
-  printf "Created example site-specific file set at ./site\\n"
-fi
+# Create site-specific file.
+[[ -d site ]] || mkdir site
+cp install.site site/install.site
+chmod +x site/install.site
 
 # Package site-specific file set if not exists or changed.
 site_dir_changed="$( find site -exec stat -c %Y {} \; | sort -r | head -n 1 )"
@@ -160,21 +107,15 @@ then
   ( cd mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH} && ls -l > index.txt )
 fi
 
-# TODO: always recreate
-# Create TFTP directory if not exists.
-if [ ! -d tftp ]
-then
-  mkdir tftp
-  ln -s ../mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/pxeboot tftp/auto_install
-  ln -s ../mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/bsd.rd tftp/bsd.rd
-  mkdir tftp/etc
-  cat << EOF > tftp/etc/boot.conf
-stty com0 115200
-set tty com0
-boot tftp:/bsd.rd
-EOF
-  printf "Created example boot(8) configuration at ./tftp/etc/boot.conf\\n"
-fi
+# Create TFTP directory.
+rm -rf tftp
+mkdir tftp
+ln -s ../mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/pxeboot tftp/auto_install
+ln -s ../mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/bsd.rd tftp/bsd.rd
+mkdir tftp/etc
+dd if=/dev/random of=tftp/etc/random.seed count=1 bs=512
+cp boot.conf tftp/etc/boot.conf
+printf "Created example boot(8) configuration at ./tftp/etc/boot.conf\\n"
 
 # Remove existing disk image if configuration changed.
 if [ -e "${DISK_FILE}" ]
@@ -186,6 +127,7 @@ then
     then
       printf "Re-creating virtual machine due to changed configuration: %s\\n" "$f"
       rm "${DISK_FILE}"
+      break
     fi
   done
 fi

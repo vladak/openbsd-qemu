@@ -1,0 +1,13 @@
+#!/bin/ksh
+
+set -o errexit
+
+# Reset OpenBSD mirror server used by pkg_add(1) and other commands.
+echo "https://cdn.openbsd.org/pub/OpenBSD" > /etc/installurl
+
+# Permit user group wheel to run any command as root without entering their
+# password using doas(1).
+echo "permit nopass keepenv :wheel" > /etc/doas.conf
+
+# Patch the base system on the first boot.
+#echo "syspatch && shutdown -r now" >> /etc/rc.firsttime

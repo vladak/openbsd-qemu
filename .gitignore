@@ -1,0 +1,4 @@
+mirror
+site
+tftp
+*.qcow2
