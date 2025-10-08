@@ -6,6 +6,7 @@
 # on 22 July 2020.
 #
 # Copyright (c) 2020 Stefan Kreutz <mail@skreutz.com>
+# Copyright (c) 2025 Vladimir Kotal
 #
 # Permission to use, copy, modify, and distribute this software for any purpose
 # with or without fee is hereby granted, provided that the above copyright
@@ -22,7 +23,7 @@
 set -o errexit
 set -o nounset
 
-# TODO Trusted HTTPS OpenBSD mirror to fetch the base public key from.
+# HTTPS OpenBSD mirror to fetch the install sets.
 HTTPS_MIRROR="${HTTPS_MIRROR-https://cdn.openbsd.org/pub/OpenBSD/}"
 
 # Size of the disk image.
