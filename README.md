@@ -47,6 +47,11 @@ Some notable changes:
 The script assumes a Linux distribution with the necessary tools such as `curl`,
 `ssh`, `openbsd-signify`, the Qemu itself, etc.
 
+Also assumes the user can run Qemu direcly, i.e.
+```
+sudo usermod -aG libvirt,kvm $USER
+```
+
 Although the `LD_PRELOAD` trick used by
 https://github.com/0xJJ/autoinstall-openbsd-on-qemu/tree/main is cool, I did not
 want to have a dependency on a compiler, so the HTTP server to serve the install
