@@ -113,7 +113,7 @@ chmod +x site/install.site
 
 # Package site-specific file set if not exists or changed.
 site_dir_changed="$( find site -exec stat -c %Y {} \; | sort -r | head -n 1 )"
-if [[ ! -e mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/site$openbsd_ver_short.tgz ] || [ "$( stat -c %Y mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/site$openbsd_ver_short.tgz )" -lt "${site_dir_changed}" ]]; then
+if [[ ! -e mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/site${openbsd_ver_short}.tgz ] || [ "$( stat -c %Y mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/site${openbsd_ver_short}.tgz )" -lt "${site_dir_changed}" ]]; then
 	rm -f mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/site$openbsd_ver_short.tgz
 	( cd site && tar -czf ../mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/site$openbsd_ver_short.tgz . )
 	( cd mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH} && ls -l > index.txt )
