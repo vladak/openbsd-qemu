@@ -23,6 +23,9 @@ The motivation for this is to create Qemu based OpenBSD machine that can be used
 for compiling custom OpenBSD kernel and also some experimentation with the
 system.
 
+Although OpenBSD system can cross-compile kernels, I chose to run OpenBSD i386
+in case a utility/program needs to be compiled as well.
+
 To do that, I modified the
 [`autoinstall-openbsd-on-qemu.sh`](https://git.skreutz.com/autoinstall-openbsd-on-qemu.git/)
 script by Stefan Kreutz, who described his approach in a
