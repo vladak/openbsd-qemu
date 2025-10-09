@@ -47,6 +47,11 @@ openbsd_ver_short=$( echo $OPENBSD_VER | tr -d . )
 # File name of the disk image.
 DISK_FILE="${DISK_FILE-disk-${ARCH}-obsd_${openbsd_ver_short}.qcow2}"
 
+if [[ ! -r ${SSH_KEY} ]]; then
+	echo "${SSH_KEY} does not exist"
+	exit 1
+fi
+
 # Check required commands.
 for cmd in curl qemu-img qemu-system-x86_64 rsync signify-openbsd ssh; do
 	if ! command -v "${cmd}" >/dev/null; then
