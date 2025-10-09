@@ -55,6 +55,7 @@ for cmd in curl qemu-img qemu-system-x86_64 rsync signify-openbsd ssh; do
 	fi
 done
 
+# Cannot run the Qemu commands without sudo unless being part of these groups.
 if ! groups | tr ' ' '\n' | grep ^kvm$ >/dev/null; then
 	echo "must have the kvm supplementary group"
 	exit 1
