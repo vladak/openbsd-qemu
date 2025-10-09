@@ -55,6 +55,15 @@ for cmd in curl qemu-img qemu-system-x86_64 rsync signify-openbsd ssh; do
 	fi
 done
 
+if ! groups | tr ' ' '\n' | grep ^kvm$ >/dev/null; then
+	echo "must have the kvm supplementary group"
+	exit 1
+fi
+if ! groups | tr ' ' '\n' | grep ^libvirt$ >/dev/null; then
+	echo "must have the kvm supplementary group"
+	exit 1
+fi
+
 PUBKEY_LOCATION="https://ftp.openbsd.org/pub/OpenBSD/"
 
 # Fetch base public key from trusted location.
