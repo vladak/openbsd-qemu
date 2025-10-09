@@ -47,7 +47,7 @@ openbsd_ver_short=$( echo $OPENBSD_VER | tr -d . )
 DISK_FILE="${DISK_FILE-disk-${ARCH}-obsd_${openbsd_ver_short}.qcow2}"
 
 # Check required commands.
-for cmd in curl qemu-img qemu-system-x86_64 rsync signify-openbsd socat ssh
+for cmd in curl qemu-img qemu-system-x86_64 rsync signify-openbsd ssh
 do
   if ! command -v "${cmd}" >/dev/null
   then
