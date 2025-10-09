@@ -101,7 +101,7 @@ if [[ ! -d mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH} ]]; then
 fi
 
 # Add autoinstall(8) configuration.
-cp install.conf mirror/install.conf
+cat install.conf | sed "s/\${openbsd_ver_short}/${openbsd_ver_short}/" > mirror/install.conf
 
 # Create disklabel(8) configuration.
 cp disklabel mirror/disklabel
