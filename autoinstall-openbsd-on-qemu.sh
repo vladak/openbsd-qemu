@@ -51,6 +51,11 @@ if [[ ! -r ${SSH_KEY} ]]; then
 	echo "${SSH_KEY} does not exist"
 	exit 1
 fi
+ssh_key_data=$( cat ${SSH_KEY} )
+if [[ -z $ssh_key_data ]]; then
+	echo "empty ssh key in ${SSH_KEY}"
+	exit 1
+fi
 
 # Check required commands.
 for cmd in curl qemu-img qemu-system-x86_64 rsync signify-openbsd ssh; do
@@ -106,7 +111,10 @@ if [[ ! -d mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH} ]]; then
 fi
 
 # Add autoinstall(8) configuration.
-cat install.conf | sed "s/\${openbsd_ver_short}/${openbsd_ver_short}/" > mirror/install.conf
+cat install.conf | sed \
+    -e "s/\${openbsd_ver_short}/${openbsd_ver_short}/" \
+    -e "s/\${ssh_key_data}/${ssh_key_data}/" \
+    > mirror/install.conf
 
 # Create disklabel(8) configuration.
 cp disklabel mirror/disklabel
