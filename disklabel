@@ -1,9 +1,9 @@
-/            2G
+/            1G
 swap         8G
 /tmp         1G
 /var         1G
 /usr         2G
-/usr/local   4G
-/usr/src     1M
+/usr/local   1G
+/usr/src     8G
 /usr/obj     1M
-/home        4G
+/home        1G
