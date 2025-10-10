@@ -206,11 +206,14 @@ function run_openbsd
 
 function ssh_openbsd
 {
-	ssh -p 2222 puffy@localhost
+	ssh \
+	    -o StrictHostKeyChecking=no \
+	    -o UserKnownHostsFile=/dev/null \
+	    -p 2222 puffy@localhost "$@"
 }
 
 check_groups
-if (( $# != 1 )); then
+if (( $# < 1 )); then
 	echo "usage `basename $0` install|ssh|run"
 	exit 1
 fi
@@ -218,7 +221,7 @@ fi
 if [[ $1 == "install" ]]; then
 	install_openbsd
 elif [[ $1 == "ssh" ]]; then
-	ssh_openbsd
+	ssh_openbsd "$@"
 elif [[ $1 == "run" ]]; then
 	run_openbsd
 else
