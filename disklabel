@@ -5,5 +5,5 @@ swap         8G
 /usr         2G
 /usr/local   1G
 /usr/src     8G
-/usr/obj     1M
+/usr/obj     8G
 /home        1G
