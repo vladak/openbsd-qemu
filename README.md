@@ -72,14 +72,14 @@ Technically the kernel can be cross-compiled so it is not necessary to build ins
 
 Follow https://www.openbsd.org/faq/faq5.html:
 ```
-doas su -
-user mod -G wsrc puffy
+doas user mod -G wsrc puffy
+doas user mod -G wobj puffy
 exit
 exit
 # relogin via SSH so that group changes take effect.
 cd /usr
 cvs -qd anoncvs@anoncvs.eu.openbsd.org:/cvs checkout -rOPENBSD_7_7 -P src/sys
-cd /sys/arch/$(machine)/conf
+cd /sys/arch/$(uname -p)/conf
 cp GENERIC CUSTOM
 # make your changes
 config CUSTOM
