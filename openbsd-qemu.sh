@@ -210,7 +210,7 @@ function ssh_openbsd
 }
 
 check_groups
-if (( $# != 2 )); then
+if (( $# != 1 )); then
 	echo "usage `basename $0` install|ssh|run"
 	exit 1
 fi
