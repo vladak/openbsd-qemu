@@ -75,7 +75,6 @@ Follow https://www.openbsd.org/faq/faq5.html:
 doas user mod -G wsrc puffy
 doas user mod -G wobj puffy
 exit
-exit
 # relogin via SSH so that group changes take effect.
 cd /usr
 cvs -qd anoncvs@anoncvs.eu.openbsd.org:/cvs checkout -rOPENBSD_7_7 -P src/sys
