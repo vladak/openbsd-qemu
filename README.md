@@ -78,8 +78,13 @@ exit
 exit
 # relogin via SSH so that group changes take effect.
 cd /usr
-cvs -qd anoncvs@anoncvs.eu.openbsd.org:/cvs checkout -rOPENBSD_7_7 -P src
-XXX
+cvs -qd anoncvs@anoncvs.eu.openbsd.org:/cvs checkout -rOPENBSD_7_7 -P src/sys
+cd /sys/arch/$(machine)/conf
+cp GENERIC CUSTOM
+# make your changes
+config CUSTOM
+cd ../compile/CUSTOM
+time make
 ```
 
 ## OpenBSD setup
