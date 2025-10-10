@@ -66,6 +66,10 @@ follows:
 XXX
 ```
 
+### Qemu gotchas
+
+The `user` networking type does not allow for ICMP to be used.
+
 ### kernel compilation
 
 Technically the kernel can be cross-compiled so it is not necessary to build inside OpenBSD/i386.
