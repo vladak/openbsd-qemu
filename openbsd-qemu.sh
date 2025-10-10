@@ -26,6 +26,8 @@ set -o nounset
 # HTTPS OpenBSD mirror to fetch the install sets.
 HTTPS_MIRROR="${HTTPS_MIRROR-https://cdn.openbsd.org/pub/OpenBSD/}"
 
+PUBKEY_LOCATION="https://ftp.openbsd.org/pub/OpenBSD/"
+
 # Size of the disk image.
 DISK_SIZE="${DISK_SIZE-32G}"
 
@@ -70,8 +72,6 @@ function check_groups
 
 function install
 {
-	PUBKEY_LOCATION="https://ftp.openbsd.org/pub/OpenBSD/"
-
 	if [[ ! -r ${SSH_KEY} ]]; then
 		echo "${SSH_KEY} does not exist"
 		exit 1
@@ -191,4 +191,5 @@ function install
 	    -nographic
 }
 
+check_groups
 install
