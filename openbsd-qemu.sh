@@ -57,6 +57,15 @@ for cmd in curl qemu-img qemu-system-x86_64 rsync signify-openbsd ssh; do
 	fi
 done
 
+if [[ $ARCH == "amd64" ]]; then
+	qemu_cmd=qemu-system-x86_64
+elif [[ $ARCH == "i386" ]]; then
+	qemu_cmd=qemu-system-i386
+else
+	echo "unknown arch"
+	exit 1
+fi
+
 function check_groups
 {
 	# Cannot run the Qemu commands without sudo unless being part of these groups.
@@ -70,7 +79,7 @@ function check_groups
 	fi
 }
 
-function install
+function install_openbsd
 {
 	if [[ ! -r ${SSH_KEY} ]]; then
 		echo "${SSH_KEY} does not exist"
@@ -173,14 +182,6 @@ function install
 
 	# Auto-install OpenBSD.
 	printf "Starting virtual machine ...\\n"
-	if [[ $ARCH == "amd64" ]]; then
-		qemu_cmd=qemu-system-x86_64
-	elif [[ $ARCH == "i386" ]]; then
-		qemu_cmd=qemu-system-i386
-	else
-		echo "unknown arch"
-		exit 1
-	fi
 	${qemu_cmd} \
 	    -enable-kvm \
 	    -smp "cpus=${CPU_COUNT}" \
@@ -191,5 +192,30 @@ function install
 	    -nographic
 }
 
+function run_openbsd
+{
+	${qemu_cmd} \
+	    -enable-kvm \
+	    -smp "cpus=${CPU_COUNT}" \
+	    -m "${MEMORY_SIZE}" \
+	    -drive "file=${DISK_FILE},media=disk,if=virtio" \
+	    -device virtio-net-pci,netdev=n1 \
+	    -netdev "user,id=n1,hostname=openbsd-vm,hostfwd=tcp::2222-:22" \
+	    -nographic
+}
+
+function ssh_openbsd
+{
+	ssh -p 2222 puffy@localhost
+}
+
 check_groups
-install
+if [[ $1 == "install" ]]; then
+	install_openbsd
+elif [[ $1 == "ssh" ]]; then
+	ssh_openbsd
+elif [[ $1 == "ssh" ]]; then
+	run_openbsd
+else
+	exit 1
+fi
