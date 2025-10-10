@@ -66,6 +66,20 @@ follows:
 XXX
 ```
 
+### kernel compilation
+
+Technically the kernel can be cross-compiled so it is not necessary to build inside OpenBSD/i386.
+
+Follow https://www.openbsd.org/faq/faq5.html:
+```
+doas su -
+user mod -G wsrc puffy
+exit
+cd /usr
+cvs -qd anoncvs@ftp.hostserver.de:/cvs checkout -rOPENBSD_7_7 -P src
+XXX
+```
+
 ## OpenBSD setup
 
 XXX
