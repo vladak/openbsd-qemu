@@ -27,7 +27,7 @@ set -o nounset
 HTTPS_MIRROR="${HTTPS_MIRROR-https://cdn.openbsd.org/pub/OpenBSD/}"
 
 # Size of the disk image.
-DISK_SIZE="${DISK_SIZE-24G}"
+DISK_SIZE="${DISK_SIZE-32G}"
 
 # Number of virtual CPUs.
 CPU_COUNT="${CPU_COUNT-4}"
