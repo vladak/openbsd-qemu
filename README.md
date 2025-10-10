@@ -85,6 +85,7 @@ config CUSTOM
 cd ../compile/CUSTOM
 time make
 ```
+It takes some XXX minutes to compile the `GENERIC` kernel.
 
 ## OpenBSD setup
 
