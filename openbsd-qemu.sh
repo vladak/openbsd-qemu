@@ -210,11 +210,16 @@ function ssh_openbsd
 }
 
 check_groups
+if (( $# != 2 )); then
+	echo "usage `basename $0` install|ssh|run"
+	exit 1
+fi
+
 if [[ $1 == "install" ]]; then
 	install_openbsd
 elif [[ $1 == "ssh" ]]; then
 	ssh_openbsd
-elif [[ $1 == "ssh" ]]; then
+elif [[ $1 == "run" ]]; then
 	run_openbsd
 else
 	exit 1
