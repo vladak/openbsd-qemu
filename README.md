@@ -76,7 +76,7 @@ doas su -
 user mod -G wsrc puffy
 exit
 cd /usr
-cvs -qd anoncvs@ftp.hostserver.de:/cvs checkout -rOPENBSD_7_7 -P src
+cvs -qd anoncvs@anoncvs.eu.openbsd.org:/cvs checkout -rOPENBSD_7_7 -P src
 XXX
 ```
 
