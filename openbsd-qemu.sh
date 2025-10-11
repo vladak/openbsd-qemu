@@ -125,12 +125,14 @@ function install_openbsd
 	fi
 
 	# Add autoinstall(8) configuration.
+	echo "Creating install.conf"
 	cat install.conf | sed \
 	    -e "s/\${openbsd_ver_short}/${openbsd_ver_short}/" \
 	    -e "s/\${ssh_key_data}/${ssh_key_data}/" \
 	    > mirror/install.conf
 
 	# Create disklabel(8) configuration.
+	echo "Copying disklabel"
 	cp disklabel mirror/disklabel
 
 	# Create site-specific file.
@@ -139,6 +141,7 @@ function install_openbsd
 	chmod +x site/install.site
 
 	# Package site-specific file set if not exists or changed.
+	echo "Creating site-specific file set"
 	site_dir_changed="$( find site -exec stat -c %Y {} \; | sort -r | head -n 1 )"
 	if [[ ! -e "mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/site${openbsd_ver_short}.tgz" ]] || [[ $( stat -c %Y "mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/site${openbsd_ver_short}.tgz" ) -lt "${site_dir_changed}" ]]; then
 		rm -f mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/site$openbsd_ver_short.tgz
@@ -147,6 +150,7 @@ function install_openbsd
 	fi
 
 	# Create TFTP directory.
+	echo "Creating tftp contents"
 	rm -rf tftp
 	mkdir tftp
 	ln -s ../mirror/pub/OpenBSD/$OPENBSD_VER/${ARCH}/pxeboot tftp/auto_install
