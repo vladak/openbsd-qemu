@@ -42,7 +42,7 @@ SSH_KEY="${SSH_KEY-${HOME}/.ssh/id_ed25519.pub}"
 
 OPENBSD_VER=7.7
 
-ARCH=i386 # or amd64
+ARCH=${ARCH-i386} # or amd64
 
 openbsd_ver_short=$( echo $OPENBSD_VER | tr -d . )
 
