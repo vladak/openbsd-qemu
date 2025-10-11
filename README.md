@@ -89,7 +89,7 @@ config CUSTOM
 cd ../compile/CUSTOM
 time make
 ```
-It takes some 339 minutes (almost 6 hours) to compile the `GENERIC` kernel in the i386 guest.
+It takes some 339 minutes (almost 6 hours) to compile the `GENERIC` kernel in the i386 guest. The size of `bsd` is some 15 MB.
 
 ## OpenBSD setup
 
