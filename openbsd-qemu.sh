@@ -225,6 +225,7 @@ fi
 if [[ $1 == "install" ]]; then
 	install_openbsd
 elif [[ $1 == "ssh" ]]; then
+	shift
 	ssh_openbsd "$@"
 elif [[ $1 == "run" ]]; then
 	run_openbsd
