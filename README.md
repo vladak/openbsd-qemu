@@ -82,7 +82,7 @@ exit
 # relogin via SSH so that group changes take effect.
 cd /usr
 cvs -qd anoncvs@anoncvs.eu.openbsd.org:/cvs checkout -rOPENBSD_7_7 -P src/sys
-cd /sys/arch/$(uname -p)/conf
+cd /sys/arch/i386/conf
 cp GENERIC CUSTOM
 # make your changes
 config CUSTOM
