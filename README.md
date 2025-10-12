@@ -94,3 +94,8 @@ It takes some 339 minutes (almost 6 hours) to compile the `GENERIC` kernel in th
 ## OpenBSD setup
 
 XXX
+
+# Links
+
+- Qemu on Ubuntu: https://idroot.us/install-qemu-ubuntu-24-04/
+
