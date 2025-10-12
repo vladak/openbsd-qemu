@@ -57,6 +57,7 @@ https://github.com/0xJJ/autoinstall-openbsd-on-qemu/tree/main is cool, I did not
 want to have a dependency on a compiler, so the HTTP server to serve the install
 bits has to be run as
 ```
+cd mirror
 sudo python3 -m http.server 80
 ```
 
@@ -89,7 +90,11 @@ config CUSTOM
 cd ../compile/CUSTOM
 time make
 ```
-It takes some 339 minutes (almost 6 hours) to compile the `GENERIC` kernel in the i386 guest. The size of `bsd` is some 15 MB.
+It takes some 339 minutes (almost 6 hours) to compile the `GENERIC` kernel in the i386 guest.
+Also, it panicked once in page table management routines on an assert. On amd64 the i386 `GENERIC` kernel
+compilation takes some 6 minutes.
+
+The size of `GENERIC` `bsd` is some 15 MB.
 
 ## OpenBSD setup
 
