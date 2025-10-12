@@ -126,7 +126,7 @@ function install_openbsd
 
 	# Add autoinstall(8) configuration.
 	echo "Creating install.conf"
-	cat install.conf | sed \
+	cat install.conf.tmpl | sed \
 	    -e "s/\${openbsd_ver_short}/${openbsd_ver_short}/" \
 	    -e "s/\${ssh_key_data}/${ssh_key_data}/" \
 	    > mirror/install.conf
