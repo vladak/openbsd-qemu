@@ -133,7 +133,9 @@ Copy the compiled kernel from the Qemu VM in `/sys/arch/i386/compile/NET4511-7.7
 
 There ought to be PF rules to allow for TFTP and HTTP[S] traffic.
 
-## OpenBSD setup
+### Install
+
+Set console speed to 115200 baud to match the `console` entry in `/etc/ttys`.
 
 XXX
 
