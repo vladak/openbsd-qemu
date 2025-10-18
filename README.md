@@ -13,7 +13,25 @@ The plan is to install OpenBSD via network (PXE) and compile the kernel in Qemu.
 
 ## OpenBSD install on Soekris over the network
 
-XXX
+### Prerequisites
+
+```
+cd /tftproot
+mkdir etc
+dd if=/dev/random of=/tftproot/etc/random.seed bs=512 count=1 status=none
+cat >/tftproot/etc/boot.conf << EOF                                                                                                                        
+set tty com0
+stty com0 115200
+boot bsd.rd
+EOF
+curl -o /tftproot/bsd.rd https://cdn.openbsd.org/pub/OpenBSD/7.7/i386/bsd.rd
+curl -o /tftproot/pxeboot https://cdn.openbsd.org/pub/OpenBSD/7.7/i386/pxeboot
+```
+
+The `dhcpd.conf` needs to have the `next-server` and `filename "pxeboot";` directives
+in the respective section.
+
+There ought to be PF rules to allow for TFTP and HTTP[S] traffic.
 
 ## Compiling the kernel
 
