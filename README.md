@@ -119,11 +119,13 @@ in the respective section.
 
 Mirror the files to the HTTP server location:
 ```
-openbsd_ver_short=77
+OPENBSD_VER=7.7
+openbsd_ver_short=$( echo $OPENBSD_VER | tr -d . )
 ARCH=i386
-mkdir -p /var/www/htdocs/OpenBSD/7.7/$ARCH
+HTTPS_MIRROR=https://cdn.openbsd.org/pub/OpenBSD/
+mkdir -p /var/www/htdocs/OpenBSD/$OPENBSD_VER/$ARCH
 for file in BUILDINFO SHA256.sig base${openbsd_ver_short}.tgz comp${openbsd_ver_short}.tgz game${openbsd_ver_short}.tgz man${openbsd_ver_short}.tgz; do
-    curl --silent -o /var/www/htdocs/OpenBSD/7.7/$ARCH/$file "${HTTPS_MIRROR}$OPENBSD_VER/${ARCH}/$file"
+    curl --silent -o /var/www/htdocs/OpenBSD/$OPENBSD_VER/$ARCH/$file "${HTTPS_MIRROR}$OPENBSD_VER/${ARCH}/$file"
 done
 ```
 
