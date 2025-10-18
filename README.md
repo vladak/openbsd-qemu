@@ -61,10 +61,13 @@ cd mirror
 sudo python3 -m http.server 80
 ```
 
-After the initial install in the VM is successfully done, start the VM as
-follows:
+After the initial install in the VM is successfully done, start the VM as follows:
 ```
-XXX
+./openbsd-qemu.sh run
+```
+Then ssh into the VM via:
+```
+./openbsd-qemu.sh ssh
 ```
 
 ### Qemu gotchas
