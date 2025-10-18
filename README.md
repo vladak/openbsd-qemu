@@ -9,29 +9,7 @@ to compile a custom kernel for it. This is not doable on the Soekris itself,
 because the CPU is too slow and the Compact Flash is slow and small (and would
 probably wear out rather quickly with all this I/O).
 
-The plan is to install OpenBSD via network (PXE) and compile the kernel in Qemu.
-
-## OpenBSD install on Soekris over the network
-
-### Prerequisites
-
-```
-cd /tftproot
-mkdir etc
-dd if=/dev/random of=/tftproot/etc/random.seed bs=512 count=1 status=none
-cat >/tftproot/etc/boot.conf << EOF                                                                                                                        
-set tty com0
-stty com0 115200
-boot bsd.rd
-EOF
-curl -o /tftproot/bsd.rd https://cdn.openbsd.org/pub/OpenBSD/7.7/i386/bsd.rd
-curl -o /tftproot/pxeboot https://cdn.openbsd.org/pub/OpenBSD/7.7/i386/pxeboot
-```
-
-The `dhcpd.conf` needs to have the `next-server` and `filename "pxeboot";` directives
-in the respective section.
-
-There ought to be PF rules to allow for TFTP and HTTP[S] traffic.
+The plan is to compile the kernel in Qemu and then install OpenBSD via network (PXE).
 
 ## Compiling the kernel
 
@@ -116,6 +94,28 @@ Also, it panicked once in page table management routines on an assert. On amd64 
 compilation takes some 6 minutes.
 
 The size of `GENERIC` `bsd` is some 15 MB.
+
+## OpenBSD install on Soekris over the network
+
+### Prerequisites
+
+```
+cd /tftproot
+mkdir etc
+dd if=/dev/random of=/tftproot/etc/random.seed bs=512 count=1 status=none
+cat >/tftproot/etc/boot.conf << EOF                                                                                                                        
+set tty com0
+stty com0 115200
+boot bsd.rd
+EOF
+curl -o /tftproot/bsd.rd https://cdn.openbsd.org/pub/OpenBSD/7.7/i386/bsd.rd
+curl -o /tftproot/pxeboot https://cdn.openbsd.org/pub/OpenBSD/7.7/i386/pxeboot
+```
+
+The `dhcpd.conf` needs to have the `next-server` and `filename "pxeboot";` directives
+in the respective section.
+
+There ought to be PF rules to allow for TFTP and HTTP[S] traffic.
 
 ## OpenBSD setup
 
