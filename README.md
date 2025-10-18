@@ -99,6 +99,8 @@ The size of `GENERIC` `bsd` is some 15 MB.
 
 ### Prerequisites
 
+Assumes working TFTP, DHCP and HTTP server.
+
 ```
 cd /tftproot
 mkdir etc
@@ -114,6 +116,18 @@ curl -o /tftproot/pxeboot https://cdn.openbsd.org/pub/OpenBSD/7.7/i386/pxeboot
 
 The `dhcpd.conf` needs to have the `next-server` and `filename "pxeboot";` directives
 in the respective section.
+
+Mirror the files to the HTTP server location:
+```
+openbsd_ver_short=77
+ARCH=i386
+mkdir -p /var/www/htdocs/OpenBSD/7.7/$ARCH
+for file in BUILDINFO SHA256.sig base${openbsd_ver_short}.tgz comp${openbsd_ver_short}.tgz game${openbsd_ver_short}.tgz man${openbsd_ver_short}.tgz; do
+    curl --silent -o /var/www/htdocs/OpenBSD/7.7/$ARCH/$file "${HTTPS_MIRROR}$OPENBSD_VER/${ARCH}/$file"
+done
+```
+
+Copy the compiled kernel from the Qemu VM to `/var/www/htdocs/OpenBSD/7.7/$ARCH/bsd`.
 
 There ought to be PF rules to allow for TFTP and HTTP[S] traffic.
 
