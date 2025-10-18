@@ -135,7 +135,7 @@ There ought to be PF rules to allow for TFTP and HTTP[S] traffic.
 
 ### Install
 
-Set console speed to 115200 baud to match the `console` entry in `/etc/ttys`.
+Set console speed to 115200 baud to match the `console` entry in `/etc/ttys`. The original speed of the previous installation was 19200.
 
 XXX
 
