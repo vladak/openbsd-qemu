@@ -129,7 +129,7 @@ for file in BUILDINFO SHA256.sig base${openbsd_ver_short}.tgz comp${openbsd_ver_
 done
 ```
 
-Copy the compiled kernel from the Qemu VM to `/var/www/htdocs/OpenBSD/7.7/$ARCH/bsd`.
+Copy the compiled kernel from the Qemu VM in `/sys/arch/i386/compile/NET4511-7.7/obj/bsd` to `/var/www/htdocs/OpenBSD/7.7/$ARCH/bsd`.
 
 There ought to be PF rules to allow for TFTP and HTTP[S] traffic.
 
