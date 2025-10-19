@@ -142,6 +142,8 @@ XXX
 ### Configuration
 
 - add the `noatime` mount option to file systems in `/etc/fstab`.
+- mount `/tmp` on MFS
+- change `syslogd` not to log to disk
 
 # Links
 
