@@ -139,6 +139,10 @@ Set console speed to 115200 baud to match the `console` entry in `/etc/ttys`. Th
 
 XXX
 
+### Configuration
+
+- add the `noatime` mount option to file systems in `/etc/fstab`.
+
 # Links
 
 - Qemu on Ubuntu: https://idroot.us/install-qemu-ubuntu-24-04/
