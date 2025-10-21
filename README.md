@@ -131,7 +131,8 @@ done
 
 Copy the compiled kernel from the Qemu VM in `/sys/arch/i386/compile/NET4511-7.7/obj/bsd` to `/var/www/htdocs/OpenBSD/7.7/$ARCH/bsd`.
 
-There ought to be PF rules to allow for TFTP and HTTP[S] traffic.
+There ought to be PF rules to allow for TFTP and HTTP[S] traffic. I had to add generic UDP rule for the TFTP traffic to allow egress
+traffic from the TFTP server to the machine with arbitrary ports.
 
 ### Install
 
