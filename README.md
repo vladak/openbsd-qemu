@@ -223,6 +223,8 @@ booting tftp:bsd.rd: 3299859+1471488+4358152+0+430080-
 ...
 ```
 
+For the initial install, only the `base77` and `bsd` were selected.
+
 ### Configuration
 
 - add the `noatime` mount option to file systems in `/etc/fstab`.
