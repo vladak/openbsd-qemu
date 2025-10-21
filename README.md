@@ -137,7 +137,90 @@ There ought to be PF rules to allow for TFTP and HTTP[S] traffic.
 
 Set console speed to 115200 baud to match the `console` entry in `/etc/ttys`. The original speed of the previous installation was 19200.
 
-XXX
+```
+comBIOS ver. 1.33  20080103  Copyright (C) 2000-2007 Soekris Engineering.
+
+net4501
+
+0032 Mbyte Memory                        CPU Elan SC520 100 Mhz 
+
+Pri Mas  SanDisk SDCFB-2048              LBA Xlt 992-64-63  2001 Mbyte
+
+Slot   Vend Dev  ClassRev Cmd  Stat CL LT HT  Base1    Base2   Int 
+-------------------------------------------------------------------
+0:00:0 1022 3000 06000000 0006 2280 00 00 00 00000000 00000000 
+0:09:0 104C AC50 06070002 0107 0210 10 3F 02 A0000000 020000A0 10
+0:16:0 168C 0013 02000001 0116 0290 10 3C 00 A0010000 00000000 11
+0:18:0 100B 0020 02000000 0107 0290 00 3F 00 0000E101 A0020000 05
+0:19:0 100B 0020 02000000 0107 0290 00 3F 00 0000E201 A0021000 09
+
+ 1 Seconds to automatic boot.   Press Ctrl-P for entering Monitor.
+
+
+
+> ?
+comBIOS Monitor Commands
+
+boot [drive][:partition] INT19 Boot
+reboot                   cold boot
+download                 download a file using XMODEM/CRC
+flashupdate              update flash BIOS with downloaded file
+time [HH:MM:SS]          show or set time
+date [YYYY/MM/DD]        show or set date
+d[b|w|d] [adr]           dump memory bytes/words/dwords
+e[b|w|d] adr value [...] enter bytes/words/dwords
+i[b|w|d] port            input from 8/16/32-bit port
+o[b|w|d] port value      output to 8/16/32-bit port
+run adr                  execute code at adr
+cmosread [adr]           read CMOS RAM data
+cmoswrite adr byte [...] write CMOS RAM data
+cmoschecksum             update CMOS RAM Checksum
+set parameter=value      set system parameter to value
+show [parameter]         show one or all system parameters
+?/help                   show this help
+
+> show
+
+ConSpeed = 115200
+ConLock = Disabled
+ConMute = Disabled
+BIOSentry = Enabled
+PCIROMS = Enabled
+PXEBoot = Enabled
+FLASH = Primary
+BootDelay = 5
+FastBoot = Disabled
+BootPartition = Disabled
+BootDrive = 80 FF FF FF 
+ShowPCI = Enabled
+Reset = Hard
+CpuSpeed = Default
+
+
+> boot F0
+
+NSC DP83815/DP83816 Fast Ethernet UNDI, v1.03                                  
+Copyright (C) 2002, 2003 National Semiconductor Corporation
+All rights reserved.
+
+Pre-boot eXecution Environment  PXE-2.0 (build 082)
+Copyright (C) 1997-2000  Intel Corporation
+
+
+CLIENT MAC ADDR: 00 00 xx xx xx xx  
+CLIENT IP: 172.70.0.2  MASK: 255.255.255.0  DHCP IP: 172.70.0.1                
+GATEWAY IP: 172.70.0.1 
+PXE-E32: TFTP open timeout                                                     
+probing: pc0 com0 com1 pci pxe![2.1] mem[639K 31M a20=on]                      
+disk: hd0+*
+net: mac 00:00:xx:xx:xx:xx, ip 172.70.0.2, server 172.70.0.1
+>> OpenBSD/i386 PXEBOOT 3.65
+switching console to com0
+
+com0: 115200 baud
+booting tftp:bsd.rd: 3299859+1471488+4358152+0+430080-
+...
+```
 
 ### Configuration
 
