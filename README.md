@@ -228,7 +228,7 @@ For the initial install, only the `base77` and `bsd` were selected.
 ### Configuration
 
 - add the `noatime` mount option to file systems in `/etc/fstab`: `f20d56f2bf6fae08.a / ffs rw,wxallowed,noatime 1 1`
-- mount `/tmp` on MFS in `/etc/fstab`: `swap /tmp mfs rw,noatime,nodev,nosuid,-s=1000 0 0`
+- mount `/tmp` on MFS in `/etc/fstab`: `swap /tmp mfs rw,noatime,nodev,nosuid,-s=500 0 0`
 - change `syslogd` not to log to disk
 - disable `cron`
 - disable `slaacd`
