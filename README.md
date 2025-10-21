@@ -232,6 +232,7 @@ For the initial install, only the `base77` and `bsd` were selected.
 - change `syslogd` not to log to disk
 - disable `cron`
 - disable `slaacd`
+- disable `savecore`
 - disable library ASLR (takes a long time during boot): `echo library_aslr=NO >> /etc/rc.conf.local`
 
 # Links
