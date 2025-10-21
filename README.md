@@ -10,6 +10,11 @@ because the CPU is too slow and the Compact Flash is slow and small (and would
 probably wear out rather quickly with all this I/O).
 
 The plan is to compile the kernel in Qemu and then install OpenBSD via network (PXE).
+Below are notes from this task.
+
+The system has 32 MB RAM out of which only 25 MB or so are accessible to the system.
+After the upgrade to OpenBSD 7.7 the system performs bunch of tasks and barely uses swap
+which is pretty impressive for a current Unix OS running on machine with such constraints.
 
 ## Compiling the kernel
 
