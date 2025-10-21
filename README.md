@@ -239,4 +239,4 @@ For the initial install, only the `base77` and `bsd` were selected.
 
 - Qemu on Ubuntu: https://idroot.us/install-qemu-ubuntu-24-04/
 - Soekris boot: http://jurjenbokma.com/ApprenticesNotes/ar01s03.xhtml
-
+- brief history of Soekris: https://voidcrunch.xyz/?p=36
