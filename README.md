@@ -144,6 +144,7 @@ XXX
 - add the `noatime` mount option to file systems in `/etc/fstab`.
 - mount `/tmp` on MFS
 - change `syslogd` not to log to disk
+- disable library ASLR (takes a long time during boot): `echo library_aslr=NO >> /etc/rc.conf.local`
 
 # Links
 
