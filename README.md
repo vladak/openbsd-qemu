@@ -240,3 +240,4 @@ For the initial install, only the `base77` and `bsd` were selected.
 - Qemu on Ubuntu: https://idroot.us/install-qemu-ubuntu-24-04/
 - Soekris boot: http://jurjenbokma.com/ApprenticesNotes/ar01s03.xhtml
 - brief history of Soekris: https://voidcrunch.xyz/?p=36
+- OpenBSD wifi notes, contains an idea to modify kernel 80211 sources to add 802.11 related logging: https://github.com/domienschepers/wifi-bsd/tree/main/openbsd
